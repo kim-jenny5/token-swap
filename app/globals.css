@@ -1,1 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap');
 @import 'tailwindcss';
+
+@theme {
+	--font-numerical: 'Fira Code', monospace;
+}
+
+.arrowless::-webkit-inner-spin-button,
+.arrowless::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
