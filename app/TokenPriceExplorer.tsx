@@ -16,18 +16,39 @@ export default function TokenPriceExplorer({ tokenInfo }: TokenPriceExplorerProp
 	const [sourceToken, setSourceToken] = useState<string>(TOKENS[0].symbol);
 	const [targetToken, setTargetToken] = useState<string>(TOKENS[2].symbol);
 
-	const sourcePrice = Number(usdInput) / tokenInfo[sourceToken];
-	const targetPrice = Number(usdInput) / tokenInfo[targetToken];
+	const swap = () => {
+		const originalSourceToken = sourceToken;
+		setSourceToken(targetToken);
+		setTargetToken(originalSourceToken);
+	};
+
+	const usd = Number(usdInput) || 0;
+	const sourceTokenUnitPrice = tokenInfo[sourceToken];
+	const targetTokenUnitPrice = tokenInfo[targetToken];
+	const targetTokenVal = usd * (sourceTokenUnitPrice / targetTokenUnitPrice);
 
 	return (
 		<>
 			<h1 className='text-2xl tracking-tight'>Token Price Explorer</h1>
-			<CoinChips onClick={setSourceToken} />
+			{/* <CoinChips onClick={setSourceToken} /> */}
 			<div className='flex h-full max-h-1/2 w-full items-center justify-between gap-x-12'>
 				{/* <LeftPanel /> */}
-				<div className='h-full w-1/2 rounded-lg bg-white p-6 shadow'>
-					<form className='flex h-full flex-col justify-evenly'>
-						<div className='w-fit self-end rounded bg-slate-100 p-1.5 text-sm'>
+				<div className='flex h-full w-1/2 flex-col justify-center rounded-lg bg-white p-6 shadow'>
+					<form className='flex gap-x-6'>
+						<label htmlFor='usdInput' className='sr-only'>
+							Input in USD
+						</label>
+						<input
+							required
+							id='usdInput'
+							type='number'
+							inputMode='decimal'
+							placeholder='0.000'
+							value={usdInput}
+							onChange={(e) => setUsdInput(e.target.value)}
+							className='font-numerical arrowless w-full max-w-fit border-b border-slate-200 text-2xl focus:outline-none'
+						/>
+						<div className='rounded bg-slate-100 p-1.5 text-sm'>
 							<label htmlFor='sourceToken' className='sr-only'>
 								Source Token
 							</label>
@@ -44,28 +65,16 @@ export default function TokenPriceExplorer({ tokenInfo }: TokenPriceExplorerProp
 								))}
 							</select>
 						</div>
-						<label htmlFor='usdInput' className='sr-only'>
-							Input in USD
-						</label>
-						<input
-							required
-							id='usdInput'
-							type='number'
-							inputMode='decimal'
-							placeholder='0.00'
-							value={usdInput}
-							onChange={(e) => setUsdInput(e.target.value)}
-							className='font-numerical arrowless border-b text-2xl focus:outline-none'
-						/>
 					</form>
 				</div>
-				<button className='rounded-full p-2.5 hover:bg-sky-200'>
+				<button onClick={swap} className='rounded-full p-2.5 hover:bg-sky-200'>
 					<ArrowsRightLeftIcon width={25} height={25} />
 				</button>
 				{/* <RightPanel /> */}
-				<div className='h-full w-1/2 rounded-lg bg-white p-6 shadow'>
-					<form className='flex h-full flex-col justify-evenly'>
-						<div className='w-fit self-end rounded bg-slate-100 p-1.5 text-sm'>
+				<div className='flex h-full w-1/2 flex-col justify-center rounded-lg bg-white p-6 shadow'>
+					<form className='flex gap-x-6'>
+						<div className='font-numerical text-2xl'>{targetTokenVal.toFixed(4)}</div>
+						<div className='rounded bg-slate-100 p-1.5 text-sm'>
 							<label htmlFor='targetToken' className='sr-only'>
 								Target Token
 							</label>
@@ -82,7 +91,6 @@ export default function TokenPriceExplorer({ tokenInfo }: TokenPriceExplorerProp
 								))}
 							</select>
 						</div>
-						<div className='font-numerical text-2xl'>Converted value here</div>
 					</form>
 				</div>
 			</div>

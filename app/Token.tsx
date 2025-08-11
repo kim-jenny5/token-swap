@@ -1,5 +1,3 @@
-import { getAssetErc20ByChainAndSymbol, getAssetPriceInfo } from '@funkit/api-base';
-
 export const TOKENS = [
 	{ symbol: 'USDC', chainId: '1' },
 	{ symbol: 'USDT', chainId: '137' },
