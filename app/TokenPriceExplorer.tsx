@@ -1,44 +1,45 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import CoinChips from './CoinChips';
+import { TOKENS } from './Token';
 // import LeftPanel from './LeftPanel';
-import RightPanel from './RightPanel';
+// import RightPanel from './RightPanel';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/solid';
 
-export const COINS = ['USDC', 'USDT', 'ETH', 'WBTC'] as const;
-export type Token = (typeof COINS)[number];
+type TokenPriceExplorerProps = {
+	tokenInfo: Record<string, number>;
+};
 
-export default function TokenPriceExplorer() {
+export default function TokenPriceExplorer({ tokenInfo }: TokenPriceExplorerProps) {
 	const [usdInput, setUsdInput] = useState<string>('');
-	const [sourceCoin, setSourceCoin] = useState<string>(COINS[0]);
-	const [targetCoin, setTargetCoin] = useState<string>(COINS[2]);
+	const [sourceToken, setSourceToken] = useState<string>(TOKENS[0].symbol);
+	const [targetToken, setTargetToken] = useState<string>(TOKENS[2].symbol);
 
-	// useEffect(() => {
-	// 	console.log('sourceCoin', sourceCoin);
-	// }, [sourceCoin]);
+	const sourcePrice = Number(usdInput) / tokenInfo[sourceToken];
+	const targetPrice = Number(usdInput) / tokenInfo[targetToken];
 
 	return (
 		<>
 			<h1 className='text-2xl tracking-tight'>Token Price Explorer</h1>
-			<CoinChips onClick={setSourceCoin} />
+			<CoinChips onClick={setSourceToken} />
 			<div className='flex h-full max-h-1/2 w-full items-center justify-between gap-x-12'>
 				{/* <LeftPanel /> */}
 				<div className='h-full w-1/2 rounded-lg bg-white p-6 shadow'>
 					<form className='flex h-full flex-col justify-evenly'>
 						<div className='w-fit self-end rounded bg-slate-100 p-1.5 text-sm'>
-							<label htmlFor='sourceCoin' className='sr-only'>
-								Source Coin
+							<label htmlFor='sourceToken' className='sr-only'>
+								Source Token
 							</label>
 							<select
-								id='sourceCoin'
-								value={sourceCoin}
-								onChange={(e) => setSourceCoin(e.target.value)}
+								id='sourceToken'
+								value={sourceToken}
+								onChange={(e) => setSourceToken(e.target.value)}
 								className='focus:outline-0'
 							>
-								{COINS.map((coin, idx) => (
-									<option key={idx} value={coin}>
-										{coin}
+								{TOKENS.map(({ symbol: token }, idx) => (
+									<option key={idx} value={token}>
+										{token}
 									</option>
 								))}
 							</select>
@@ -65,18 +66,18 @@ export default function TokenPriceExplorer() {
 				<div className='h-full w-1/2 rounded-lg bg-white p-6 shadow'>
 					<form className='flex h-full flex-col justify-evenly'>
 						<div className='w-fit self-end rounded bg-slate-100 p-1.5 text-sm'>
-							<label htmlFor='sourceCoin' className='sr-only'>
-								Source Coin
+							<label htmlFor='targetToken' className='sr-only'>
+								Target Token
 							</label>
 							<select
-								id='sourceCoin'
-								value={targetCoin}
-								onChange={(e) => setTargetCoin(e.target.value)}
+								id='targetToken'
+								value={targetToken}
+								onChange={(e) => setTargetToken(e.target.value)}
 								className='focus:outline-0'
 							>
-								{COINS.map((coin, idx) => (
-									<option key={idx} value={coin}>
-										{coin}
+								{TOKENS.map(({ symbol: token }, idx) => (
+									<option key={idx} value={token}>
+										{token}
 									</option>
 								))}
 							</select>
