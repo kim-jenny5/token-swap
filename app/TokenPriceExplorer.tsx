@@ -52,7 +52,7 @@ export default function TokenPriceExplorer({ tokenInfo }: TokenPriceExplorerProp
 					Some tokens aren’t available right now.
 				</div>
 			)}
-			<div className='flex items-center justify-between gap-x-5'>
+			<div className='flex items-center justify-between gap-x-6'>
 				<TokenPanel
 					tokenVal={sourceTokenVal}
 					tokenSymbol={sourceToken as Token}
@@ -74,6 +74,11 @@ export default function TokenPriceExplorer({ tokenInfo }: TokenPriceExplorerProp
 					onChangeFn={(token) => handleTargetChange(token as Token)}
 				/>
 			</div>
+			{/* {sourceTokenUnitPrice && targetTokenUnitPrice && (
+				<div className='text-center text-sm text-white/70'>
+					1 {sourceToken} ≈ {(sourceTokenUnitPrice / targetTokenUnitPrice).toFixed(6)} {targetToken}
+				</div>
+			)} */}
 			<div className='flex items-center justify-between gap-x-4'>
 				<div className='flex w-full items-center gap-x-2 rounded-2xl border border-white/10 bg-black/30 px-3 py-2'>
 					<span className='text-white/70'>$</span>
