@@ -44,6 +44,9 @@ export default function TokenPriceExplorer({ tokenInfo }: TokenPriceExplorerProp
 
 	return (
 		<div className='space-y-5 text-white'>
+			<div className='text-end text-sm font-semibold text-white/50 uppercase'>
+				Token Price Explorer
+			</div>
 			{invalidToken && (
 				<div className='rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white/80'>
 					Some tokens aren’t available right now.
