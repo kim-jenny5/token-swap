@@ -26,13 +26,10 @@ const tokenInfo = Object.fromEntries(
 	)
 );
 
-console.log('💁🏻‍♀️ TOKEN INFO', assetErc20);
-console.log('🤑 PRICE', tokenInfo);
-
 export default function Home() {
 	return (
 		<main className='mx-auto flex h-full w-full max-w-4xl flex-col items-center justify-center'>
-			<div className='flex h-4/5 w-full flex-col items-center justify-center gap-y-8 rounded bg-sky-50 px-4 sm:px-6 lg:px-8'>
+			<div className='flex h-4/5 w-full flex-col items-center justify-center gap-y-8 rounded bg-blue-50 px-4 sm:px-6 lg:px-8'>
 				<TokenPriceExplorer tokenInfo={tokenInfo} />
 			</div>
 		</main>
