@@ -8,6 +8,29 @@ A simple token price viewer that lets users select two tokens and input a USD am
 
 ---
 
+## Setup & Running Locally
+
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/kim-jenny5/fun-take-home.git
+   cd fun-take-home
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   npm install
+   ```
+
+3. **Run the development server**
+
+   ```bash
+   pnpm run dev
+   ```
+
+---
+
 ## Features
 
 - **Select two tokens** (source & target) from dropdowns.
@@ -57,23 +80,13 @@ I used ChatGPT to:
 
 ---
 
-## Setup & Running Locally
+## Future Improvements
 
-1. **Clone the repository**
+If this were a real production project, features I'd consider adding include:
 
-   ```bash
-   git clone https://github.com/kim-jenny5/fun-take-home.git
-   cd fun-take-home
-   ```
-
-2. **Install dependencies**
-
-   ```bash
-   npm install
-   ```
-
-3. **Run the development server**
-
-   ```bash
-   pnpm run dev
-   ```
+- **Accessibility**: Add proper ARIA attributes, keyboard navigation support, and screen reader optimizations to make the interface usable for all users.
+- **Enhanced error handling & loading states**: While basic error handling is already implemented, I’d extend it to display user-friendly error messages and visual loading indicators, especially when token data takes longer to fetch.
+- **Responsive refinements**: Further optimize the layout for smaller viewports and touch interactions.
+- **Unit tests**: Add tests for core logic like token switching, dropdown selection, and USD-to-token conversions.
+- **Live swapping**: Integrate actual swap functionality instead of static conversions, so the UI reflects real transactions.
+- **Animations & polish**: Smooth transitions when switching tokens or updating values to improve perceived performance and user delight.
