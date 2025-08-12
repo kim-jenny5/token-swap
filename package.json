@@ -12,6 +12,7 @@
 	},
 	"dependencies": {
 		"@funkit/api-base": "^1.9.9",
+		"@headlessui/react": "^2.2.7",
 		"@heroicons/react": "^2.2.0",
 		"clsx": "^2.1.1",
 		"js-confetti": "^0.12.0",

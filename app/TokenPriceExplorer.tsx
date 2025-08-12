@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Confiatti from './Confiatti';
-import { TOKENS } from './Token';
+import { TOKENS, Token } from './Token';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/solid';
 import TokenPanel from './TokenPanel';
 
@@ -40,7 +40,7 @@ export default function TokenPriceExplorer({ tokenInfo }: TokenPriceExplorerProp
 			<div className='flex items-center justify-between gap-x-5'>
 				<TokenPanel
 					tokenVal={sourceTokenVal}
-					selectedToken={sourceToken}
+					selectedToken={sourceToken as Token}
 					onChangeFn={setSourceToken}
 				/>
 				<button
@@ -52,7 +52,7 @@ export default function TokenPriceExplorer({ tokenInfo }: TokenPriceExplorerProp
 				</button>
 				<TokenPanel
 					tokenVal={targetTokenVal}
-					selectedToken={targetToken}
+					selectedToken={targetToken as Token}
 					onChangeFn={setTargetToken}
 				/>
 			</div>
