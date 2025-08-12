@@ -29,30 +29,25 @@ export default function TokenPriceExplorer({ tokenInfo }: TokenPriceExplorerProp
 
 	return (
 		<div className='space-y-5 text-white'>
-			<div className='flex items-center justify-between'>
-				<div className='flex items-center gap-x-2 text-white'>
-					<span className='text-base font-semibold'>{tokenInfo[sourceToken].name}</span>
-				</div>
-				<div className='flex items-center gap-x-2 text-white'>
-					<span className='text-base font-semibold'>{tokenInfo[targetToken].name}</span>
-				</div>
-			</div>
 			<div className='flex items-center justify-between gap-x-5'>
 				<TokenPanel
 					tokenVal={sourceTokenVal}
-					selectedToken={sourceToken as Token}
+					tokenSymbol={sourceToken as Token}
+					tokenName={tokenInfo[sourceToken].name}
 					onChangeFn={setSourceToken}
 				/>
 				<button
 					type='button'
 					onClick={swap}
-					className='rounded-2xl border border-white/10 bg-white/5 p-2.5 text-white/80 hover:bg-white/[0.14] focus:outline-none'
+					className='rounded-2xl border border-white/10 bg-white/20 p-2.5 text-white/80 hover:bg-white/10 focus:outline-none'
 				>
 					<ArrowsRightLeftIcon width={20} height={20} />
 				</button>
 				<TokenPanel
 					tokenVal={targetTokenVal}
-					selectedToken={targetToken as Token}
+					tokenSymbol={targetToken as Token}
+					tokenName={tokenInfo[targetToken].name}
+					alignment='end'
 					onChangeFn={setTargetToken}
 				/>
 			</div>
