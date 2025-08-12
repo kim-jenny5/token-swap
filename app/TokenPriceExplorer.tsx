@@ -1,11 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import CoinChips from './CoinChips';
+import Confiatti from './Confiatti';
+// import CoinChips from './CoinChips';
 import { TOKENS } from './Token';
-// import LeftPanel from './LeftPanel';
-// import RightPanel from './RightPanel';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/solid';
+import TokenPanel from './TokenPanel';
 
 type TokenPriceExplorerProps = {
 	tokenInfo: Record<string, number>;
@@ -52,51 +52,21 @@ export default function TokenPriceExplorer({ tokenInfo }: TokenPriceExplorerProp
 				</div>
 			</form>
 			<div className='flex h-full max-h-1/2 w-full items-center justify-between gap-x-12'>
-				{/* <LeftPanel /> */}
-				<div className='flex h-full w-1/2 flex-col justify-center rounded-lg bg-white p-6 shadow'>
-					<div className='flex justify-center gap-x-8'>
-						<div className='font-numerical text-2xl'>{sourceTokenVal.toFixed(4)}</div>
-						<div className='rounded bg-slate-100 p-1.5 text-sm'>
-							<select
-								value={sourceToken}
-								onChange={(e) => setSourceToken(e.target.value)}
-								className='focus:outline-0'
-							>
-								{TOKENS.map(({ symbol: token }, idx) => (
-									<option key={idx} value={token}>
-										{token}
-									</option>
-								))}
-							</select>
-						</div>
-					</div>
-				</div>
+				<TokenPanel
+					tokenVal={sourceTokenVal}
+					selectedToken={sourceToken}
+					onChangeFn={setSourceToken}
+				/>
 				<button onClick={swap} className='rounded-full p-2.5 hover:bg-blue-200'>
 					<ArrowsRightLeftIcon width={25} height={25} />
 				</button>
-				{/* <RightPanel /> */}
-				<div className='flex h-full w-1/2 flex-col justify-center rounded-lg bg-white p-6 shadow'>
-					<div className='flex justify-center gap-x-8'>
-						<div className='font-numerical text-2xl'>{targetTokenVal.toFixed(4)}</div>
-						<div className='rounded bg-slate-100 p-1.5 text-sm'>
-							<select
-								value={targetToken}
-								onChange={(e) => setTargetToken(e.target.value)}
-								className='focus:outline-0'
-							>
-								{TOKENS.map(({ symbol: token }, idx) => (
-									<option key={idx} value={token}>
-										{token}
-									</option>
-								))}
-							</select>
-						</div>
-					</div>
-				</div>
+				<TokenPanel
+					tokenVal={targetTokenVal}
+					selectedToken={targetToken}
+					onChangeFn={setTargetToken}
+				/>
 			</div>
-			<button className='rounded-full bg-blue-600 px-3 py-1.5 font-semibold tracking-tight text-white uppercase hover:bg-blue-700 active:bg-blue-800'>
-				Swap
-			</button>
+			<Confiatti />
 		</>
 	);
 }
