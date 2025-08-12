@@ -1,5 +1,7 @@
 # Token Price Explorer
 
+> **Note:** This demo app hardcodes its API key for ease of local testing.
+
 A simple token price viewer that lets users select two tokens and input a USD amount to see the approximate equivalent amounts in those tokens.
 
 [**Live Demo →** ]
@@ -73,7 +75,7 @@ I used ChatGPT to:
 
 - Solve TypeScript type errors.
 - Refactor repetitive code (e.g., splitting out the token panels into reusable components instead of keeping everything in one file).
-- Rewrite functions to be more human-readable.
+- Rewrite functions to be more human-readable and reword comments/messages.
 - Write this README.
 
 ---
@@ -82,9 +84,10 @@ I used ChatGPT to:
 
 If this were a real production project, features I'd consider adding include:
 
-- **Accessibility**: Add proper ARIA attributes, keyboard navigation support, and screen reader optimizations to make the interface usable for all users.
-- **Enhanced error handling & loading states**: While basic error handling is already implemented, I’d extend it to display user-friendly error messages and visual loading indicators, especially when token data takes longer to fetch.
-- **Responsive refinements**: Further optimize the layout for smaller viewports and touch interactions.
-- **Unit tests**: Add tests for core logic like token switching, dropdown selection, and USD-to-token conversions.
-- **Live swapping**: Integrate actual swap functionality instead of static conversions, so the UI reflects real transactions.
-- **Animations & polish**: Smooth transitions when switching tokens or updating values to improve perceived performance and user delight.
+- **Security**: move API key server-side
+- **Accessibility**: add proper ARIA attributes, keyboard navigation support, and screen reader optimizations to make the interface usable for all users.
+- **Enhanced error handling & loading states**: while basic error handling is already implemented, I’d extend it to display user-friendly error messages and visual loading indicators, especially when token data takes longer to fetch.
+- **Responsive refinements**: further optimize the layout for smaller viewports and touch interactions.
+- **Unit tests**: add tests for core logic like token switching, dropdown selection, and USD-to-token conversions.
+- **Live swapping**: integrate actual swap functionality instead of static conversions, so the UI reflects real transactions.
+- **Animations & polish**: smooth transitions when switching tokens or updating values to improve perceived performance and user delight.

@@ -1,6 +1,6 @@
 import { getAssetErc20ByChainAndSymbol, getAssetPriceInfo } from '@funkit/api-base';
 
-// usually would hide inside .env but for simplicity sake to run this project locally
+// hardcoded for simplicity sake to run this project locally
 const API_KEY = 'Z9SZaOwpmE40KX61mUKWm5hrpGh7WHVkaTvQJpQk';
 
 export const TOKENS = [
@@ -17,6 +17,11 @@ export const findNextToken = (otherToken: Token) => {
 	const idx = symbols.indexOf(otherToken);
 	return symbols[(idx + 1) % symbols.length];
 };
+
+export const formatTokenVal = new Intl.NumberFormat('en-US', {
+	minimumFractionDigits: 0,
+	maximumFractionDigits: 4,
+});
 
 export const getTokenInfo = async () => {
 	try {
@@ -52,6 +57,7 @@ export const getTokenInfo = async () => {
 
 		return tokenInfo;
 	} catch (error) {
-		throw new Error(`Failed to fetch token info: ${error}`);
+		console.log('Failed to fetch token info:', error);
+		return null;
 	}
 };
