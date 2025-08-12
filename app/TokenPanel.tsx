@@ -18,12 +18,7 @@ export default function TokenPanel({
 	onChangeFn,
 }: TokenPanelProps) {
 	return (
-		<div className={`content flex w-full flex-col gap-y-2 items-${alignment}`}>
-			{tokenName && (
-				<div className='flex items-center gap-x-2 text-white'>
-					<span className='text-base font-semibold'>{tokenName}</span>
-				</div>
-			)}
+		<div className={`flex w-full flex-col gap-y-2 items-${alignment}`}>
 			<div className='flex w-full max-w-2xs items-center justify-between rounded-2xl border border-white/10 bg-black/30 px-4 py-3'>
 				<span className='font-numerical w-full truncate overflow-hidden text-3xl text-ellipsis text-white'>
 					{formatTokenVal.format(tokenVal)}

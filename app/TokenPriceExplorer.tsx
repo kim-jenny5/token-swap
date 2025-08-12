@@ -16,6 +16,8 @@ export default function TokenPriceExplorer({ tokenInfo }: TokenPriceExplorerProp
 	const [targetToken, setTargetToken] = useState<Token>(TOKENS[2].symbol);
 
 	const usd = Number(usdInput) || 0;
+	const sourceTokenName = tokenInfo?.[sourceToken]?.name;
+	const targetTokenName = tokenInfo?.[targetToken]?.name;
 	const sourceTokenUnitPrice = tokenInfo?.[sourceToken]?.unitPrice ?? 0;
 	const targetTokenUnitPrice = tokenInfo?.[targetToken]?.unitPrice ?? 0;
 	const sourceTokenVal = sourceTokenUnitPrice ? usd / sourceTokenUnitPrice : 0;
@@ -54,11 +56,14 @@ export default function TokenPriceExplorer({ tokenInfo }: TokenPriceExplorerProp
 					⚠️ Token prices are currently unavailable. Conversions will not reflect live data.
 				</div>
 			)}
+			<div className='mb-2.5 flex items-center justify-between text-white'>
+				{sourceTokenName && <span className='text-base font-semibold'>{sourceTokenName}</span>}
+				{targetTokenName && <span className='text-base font-semibold'>{targetTokenName}</span>}
+			</div>
 			<div className='flex items-center justify-between gap-x-6'>
 				<TokenPanel
 					tokenVal={sourceTokenVal}
 					tokenSymbol={sourceToken as Token}
-					tokenName={tokenInfo?.[sourceToken]?.name}
 					onChangeFn={(token) => handleSourceChange(token as Token)}
 				/>
 				<button
@@ -70,7 +75,6 @@ export default function TokenPriceExplorer({ tokenInfo }: TokenPriceExplorerProp
 				<TokenPanel
 					tokenVal={targetTokenVal}
 					tokenSymbol={targetToken as Token}
-					tokenName={tokenInfo?.[targetToken]?.name}
 					alignment='end'
 					onChangeFn={(token) => handleTargetChange(token as Token)}
 				/>
