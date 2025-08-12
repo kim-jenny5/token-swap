@@ -2,8 +2,6 @@
 
 A simple token price viewer that lets users select two tokens and input a USD amount to see the approximate equivalent amounts in those tokens.
 
-> This project was created as a **take-home assessment for Fun.xyz**.
-
 [**Live Demo →** ]
 
 ---
@@ -26,7 +24,7 @@ A simple token price viewer that lets users select two tokens and input a USD am
 3. **Run the development server**
 
    ```bash
-   pnpm run dev
+   npm run dev
    ```
 
 ---
