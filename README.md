@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Token Price Explorer
 
-## Getting Started
+A simple token price viewer that lets users select two tokens and input a USD amount to see the approximate equivalent amounts in those tokens.
 
-First, run the development server:
+> This project was created as a **take-home assessment for Fun.xyz**.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+[**Live Demo →** ]
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Select two tokens** (source & target) from dropdowns.
+- **Enter a USD amount** to see its equivalent in both tokens.
+- **Switch tokens** with a single click using the middle toggle button (e.g., if USDC is on the left and ETH is on the right, clicking it will put ETH on the left and USDC on the right).
+- **Fun confetti animation** when clicking the currently defunct swap button (purely for entertainment).
+- **Automatic token selection adjustment** to prevent the same token being selected on both panels.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Libraries Used
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **[Tailwind CSS](https://tailwindcss.com/)** — utility-first CSS for quick, consistent styling.
+- **[Headless UI](https://headlessui.dev/)** — accessible, unstyled UI components that work seamlessly with Tailwind CSS and used for the token dropdown menus.
+- **[Heroicons](https://heroicons.com/)** — SVG icons for the switch button.
+- **[js-confetti](https://github.com/loonywizard/js-confetti)** — adds a fun confetti effect for the swap button.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Assumptions & Design Decisions
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Initially, I interpreted the task as a classic token swap UI (like Uniswap) where the user would input a value directly into the source panel (e.g., “100 WBTC”).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+However, the instructions — _"input a USD amount to see the approximate equivalent amounts in those tokens"_ — led me to instead provide a **dedicated USD input field** separate from the token panels.
+
+### Key Choices:
+
+- **Dropdowns instead of chips**  
+  The wireframe included four token “chips” at the top, but I found this restrictive and less intuitive. A dropdown allows the user to directly select a token for each panel without having to re-click chips or guess the intended interaction.
+- **Middle toggle button for switching**  
+  Allows the user to flip the source and target tokens quickly without reselecting both manually.
+- **Token conflict handling**  
+  If the user tries to select the same token on both sides, the app automatically advances the conflicting side to the next token in the list.
+- **Confetti instead of real swaps**  
+  Since no actual token swapping is happening, the swap button triggers a fun confetti animation instead.
+
+---
+
+## AI Assistance
+
+I used ChatGPT to:
+
+- Solve TypeScript type errors.
+- Refactor repetitive code (e.g., splitting out the token panels into reusable components instead of keeping everything in one file).
+- Rewrite functions to be more human-readable.
+- Write this README.
+
+---
+
+## Setup & Running Locally
+
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/kim-jenny5/fun-take-home.git
+   cd fun-take-home
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   npm install
+   ```
+
+3. **Run the development server**
+
+   ```bash
+   pnpm run dev
+   ```

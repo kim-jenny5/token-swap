@@ -1,5 +1,8 @@
 import { getAssetErc20ByChainAndSymbol, getAssetPriceInfo } from '@funkit/api-base';
 
+// usually would hide inside .env but for simplicity sake to run this project locally
+const API_KEY = 'Z9SZaOwpmE40KX61mUKWm5hrpGh7WHVkaTvQJpQk';
+
 export const TOKENS = [
 	{ symbol: 'USDC', chainId: '1' },
 	{ symbol: 'USDT', chainId: '137' },
@@ -22,7 +25,7 @@ export const getTokenInfo = async () => {
 				getAssetErc20ByChainAndSymbol({
 					chainId: chainId,
 					symbol: symbol,
-					apiKey: process.env.API_KEY as string,
+					apiKey: API_KEY,
 				})
 			)
 		);
@@ -33,7 +36,7 @@ export const getTokenInfo = async () => {
 					const token = await getAssetPriceInfo({
 						chainId: chain,
 						assetTokenAddress: address,
-						apiKey: process.env.API_KEY as string,
+						apiKey: API_KEY,
 					});
 
 					return [

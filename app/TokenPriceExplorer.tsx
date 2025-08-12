@@ -23,7 +23,7 @@ export default function TokenPriceExplorer({ tokenInfo }: TokenPriceExplorerProp
 
 	const invalidToken = !sourceToken || !targetToken;
 
-	const swap = () => {
+	const switchToken = () => {
 		if (invalidToken) return;
 		const originalSourceToken = sourceToken;
 		setSourceToken(targetToken);
@@ -57,7 +57,7 @@ export default function TokenPriceExplorer({ tokenInfo }: TokenPriceExplorerProp
 					onChangeFn={(token) => handleSourceChange(token as Token)}
 				/>
 				<button
-					onClick={swap}
+					onClick={switchToken}
 					disabled={invalidToken}
 					className='rounded-2xl border border-white/10 bg-white/20 p-2.5 text-white/80 hover:bg-white/10 focus:outline-none'
 				>
