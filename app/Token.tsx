@@ -9,6 +9,12 @@ export const TOKENS = [
 
 export type Token = (typeof TOKENS)[number]['symbol'];
 
+export const findNextToken = (otherToken: Token) => {
+	const symbols = TOKENS.map((token) => token.symbol);
+	const idx = symbols.indexOf(otherToken);
+	return symbols[(idx + 1) % symbols.length];
+};
+
 export const getTokenInfo = async () => {
 	const assetErc20 = await Promise.all(
 		TOKENS.map(({ symbol, chainId }) =>

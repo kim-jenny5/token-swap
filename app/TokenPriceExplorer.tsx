@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Confiatti from './Confiatti';
-import { TOKENS, Token } from './Token';
+import { TOKENS, Token, findNextToken } from './Token';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/solid';
 import TokenPanel from './TokenPanel';
 
@@ -12,8 +12,14 @@ type TokenPriceExplorerProps = {
 
 export default function TokenPriceExplorer({ tokenInfo }: TokenPriceExplorerProps) {
 	const [usdInput, setUsdInput] = useState<string>('');
-	const [sourceToken, setSourceToken] = useState<string>(TOKENS[0].symbol);
-	const [targetToken, setTargetToken] = useState<string>(TOKENS[2].symbol);
+	const [sourceToken, setSourceToken] = useState<Token>(TOKENS[0].symbol);
+	const [targetToken, setTargetToken] = useState<Token>(TOKENS[2].symbol);
+
+	const usd = Number(usdInput) || 0;
+	const sourceTokenUnitPrice = tokenInfo[sourceToken].unitPrice;
+	const targetTokenUnitPrice = tokenInfo[targetToken].unitPrice;
+	const sourceTokenVal = usd / sourceTokenUnitPrice;
+	const targetTokenVal = usd / targetTokenUnitPrice;
 
 	const swap = () => {
 		const originalSourceToken = sourceToken;
@@ -21,11 +27,19 @@ export default function TokenPriceExplorer({ tokenInfo }: TokenPriceExplorerProp
 		setTargetToken(originalSourceToken);
 	};
 
-	const usd = Number(usdInput) || 0;
-	const sourceTokenUnitPrice = tokenInfo[sourceToken].unitPrice;
-	const targetTokenUnitPrice = tokenInfo[targetToken].unitPrice;
-	const sourceTokenVal = usd / sourceTokenUnitPrice;
-	const targetTokenVal = usd / targetTokenUnitPrice;
+	const handleSourceChange = (newSource: Token) => {
+		if (newSource === targetToken) {
+			setTargetToken(findNextToken(targetToken));
+		}
+		setSourceToken(newSource);
+	};
+
+	const handleTargetChange = (newTarget: Token) => {
+		if (newTarget === sourceToken) {
+			setSourceToken(findNextToken(sourceToken));
+		}
+		setTargetToken(newTarget);
+	};
 
 	return (
 		<div className='space-y-5 text-white'>
@@ -34,7 +48,7 @@ export default function TokenPriceExplorer({ tokenInfo }: TokenPriceExplorerProp
 					tokenVal={sourceTokenVal}
 					tokenSymbol={sourceToken as Token}
 					tokenName={tokenInfo[sourceToken].name}
-					onChangeFn={setSourceToken}
+					onChangeFn={(token) => handleSourceChange(token as Token)}
 				/>
 				<button
 					type='button'
@@ -48,7 +62,7 @@ export default function TokenPriceExplorer({ tokenInfo }: TokenPriceExplorerProp
 					tokenSymbol={targetToken as Token}
 					tokenName={tokenInfo[targetToken].name}
 					alignment='end'
-					onChangeFn={setTargetToken}
+					onChangeFn={(token) => handleTargetChange(token as Token)}
 				/>
 			</div>
 			<div className='flex items-center justify-between gap-x-4'>
