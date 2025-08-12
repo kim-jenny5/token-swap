@@ -1,36 +1,7 @@
-import { getAssetErc20ByChainAndSymbol, getAssetPriceInfo } from '@funkit/api-base';
-import { TOKENS } from './Token';
+import { getTokenInfo } from './Token';
 import TokenPriceExplorer from './TokenPriceExplorer';
 
-const assetErc20 = await Promise.all(
-	TOKENS.map(({ symbol, chainId }) =>
-		getAssetErc20ByChainAndSymbol({
-			chainId: chainId,
-			symbol: symbol,
-			apiKey: process.env.API_KEY as string,
-		})
-	)
-);
-
-const tokenInfo = Object.fromEntries(
-	await Promise.all(
-		assetErc20.map(async ({ address, chain, symbol, name }) => {
-			const token = await getAssetPriceInfo({
-				chainId: chain,
-				assetTokenAddress: address,
-				apiKey: process.env.API_KEY as string,
-			});
-
-			return [
-				symbol,
-				{
-					name: name,
-					unitPrice: token.unitPrice,
-				},
-			];
-		})
-	)
-);
+const tokenInfo = await getTokenInfo();
 
 export default function Home() {
 	return (
