@@ -16,43 +16,49 @@ export default function TokenPriceExplorer({ tokenInfo }: TokenPriceExplorerProp
 	const [targetToken, setTargetToken] = useState<Token>(TOKENS[2].symbol);
 
 	const usd = Number(usdInput) || 0;
-	const sourceTokenUnitPrice = tokenInfo[sourceToken].unitPrice;
-	const targetTokenUnitPrice = tokenInfo[targetToken].unitPrice;
-	const sourceTokenVal = usd / sourceTokenUnitPrice;
-	const targetTokenVal = usd / targetTokenUnitPrice;
+	const sourceTokenUnitPrice = tokenInfo[sourceToken]?.unitPrice;
+	const targetTokenUnitPrice = tokenInfo[targetToken]?.unitPrice;
+	const sourceTokenVal = sourceTokenUnitPrice ? usd / sourceTokenUnitPrice : 0;
+	const targetTokenVal = targetTokenUnitPrice ? usd / targetTokenUnitPrice : 0;
+
+	const invalidToken = !sourceToken || !targetToken;
 
 	const swap = () => {
+		if (invalidToken) return;
 		const originalSourceToken = sourceToken;
 		setSourceToken(targetToken);
 		setTargetToken(originalSourceToken);
 	};
 
 	const handleSourceChange = (newSource: Token) => {
-		if (newSource === targetToken) {
-			setTargetToken(findNextToken(targetToken));
-		}
+		if (!tokenInfo[newSource]) return;
+		if (newSource === targetToken) setTargetToken(findNextToken(targetToken));
 		setSourceToken(newSource);
 	};
 
 	const handleTargetChange = (newTarget: Token) => {
-		if (newTarget === sourceToken) {
-			setSourceToken(findNextToken(sourceToken));
-		}
+		if (!tokenInfo[newTarget]) return;
+		if (newTarget === sourceToken) setSourceToken(findNextToken(sourceToken));
 		setTargetToken(newTarget);
 	};
 
 	return (
 		<div className='space-y-5 text-white'>
+			{invalidToken && (
+				<div className='rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white/80'>
+					Some tokens aren’t available right now.
+				</div>
+			)}
 			<div className='flex items-center justify-between gap-x-5'>
 				<TokenPanel
 					tokenVal={sourceTokenVal}
 					tokenSymbol={sourceToken as Token}
-					tokenName={tokenInfo[sourceToken].name}
+					tokenName={tokenInfo[sourceToken]?.name}
 					onChangeFn={(token) => handleSourceChange(token as Token)}
 				/>
 				<button
-					type='button'
 					onClick={swap}
+					disabled={invalidToken}
 					className='rounded-2xl border border-white/10 bg-white/20 p-2.5 text-white/80 hover:bg-white/10 focus:outline-none'
 				>
 					<ArrowsRightLeftIcon width={20} height={20} />
@@ -60,7 +66,7 @@ export default function TokenPriceExplorer({ tokenInfo }: TokenPriceExplorerProp
 				<TokenPanel
 					tokenVal={targetTokenVal}
 					tokenSymbol={targetToken as Token}
-					tokenName={tokenInfo[targetToken].name}
+					tokenName={tokenInfo[targetToken]?.name}
 					alignment='end'
 					onChangeFn={(token) => handleTargetChange(token as Token)}
 				/>
@@ -70,11 +76,12 @@ export default function TokenPriceExplorer({ tokenInfo }: TokenPriceExplorerProp
 					<span className='text-white/70'>$</span>
 					<input
 						id='usdInput'
+						type='number'
 						placeholder='0.00'
 						inputMode='decimal'
 						value={usdInput}
 						onChange={(e) => setUsdInput(e.target.value)}
-						className='w-full text-lg text-white outline-none'
+						className='arrowless w-full text-lg text-white outline-none'
 					/>
 					<span className='text-white/70'>USD</span>
 				</div>

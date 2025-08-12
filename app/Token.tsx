@@ -16,35 +16,39 @@ export const findNextToken = (otherToken: Token) => {
 };
 
 export const getTokenInfo = async () => {
-	const assetErc20 = await Promise.all(
-		TOKENS.map(({ symbol, chainId }) =>
-			getAssetErc20ByChainAndSymbol({
-				chainId: chainId,
-				symbol: symbol,
-				apiKey: process.env.API_KEY as string,
-			})
-		)
-	);
-
-	const tokenInfo = Object.fromEntries(
-		await Promise.all(
-			assetErc20.map(async ({ address, chain, symbol, name }) => {
-				const token = await getAssetPriceInfo({
-					chainId: chain,
-					assetTokenAddress: address,
+	try {
+		const assetErc20 = await Promise.all(
+			TOKENS.map(({ symbol, chainId }) =>
+				getAssetErc20ByChainAndSymbol({
+					chainId: chainId,
+					symbol: symbol,
 					apiKey: process.env.API_KEY as string,
-				});
+				})
+			)
+		);
 
-				return [
-					symbol,
-					{
-						name: name,
-						unitPrice: token.unitPrice,
-					},
-				];
-			})
-		)
-	);
+		const tokenInfo = Object.fromEntries(
+			await Promise.all(
+				assetErc20.map(async ({ address, chain, symbol, name }) => {
+					const token = await getAssetPriceInfo({
+						chainId: chain,
+						assetTokenAddress: address,
+						apiKey: process.env.API_KEY as string,
+					});
 
-	return tokenInfo;
+					return [
+						symbol,
+						{
+							name: name,
+							unitPrice: token.unitPrice,
+						},
+					];
+				})
+			)
+		);
+
+		return tokenInfo;
+	} catch (error) {
+		throw new Error(`Failed to fetch token info: ${error}`);
+	}
 };
