@@ -7,13 +7,11 @@ type TokenPanelProps = {
 	tokenName?: string;
 	alignment?: 'start' | 'end';
 	onChangeFn: (token: Token) => void;
-	// style: string;
 };
 
 export default function TokenPanel({
 	tokenVal,
 	tokenSymbol,
-	tokenName,
 	alignment = 'start',
 	onChangeFn,
 }: TokenPanelProps) {

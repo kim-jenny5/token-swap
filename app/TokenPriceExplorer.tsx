@@ -35,13 +35,13 @@ export default function TokenPriceExplorer({ tokenInfo }: TokenPriceExplorerProp
 	};
 
 	const handleSourceChange = (newSource: Token) => {
-		if (tokenInfo?.[newSource]) return;
+		if (!tokenInfo?.[newSource]) return;
 		if (newSource === targetToken) setTargetToken(findNextToken(targetToken));
 		setSourceToken(newSource);
 	};
 
 	const handleTargetChange = (newTarget: Token) => {
-		if (tokenInfo?.[newTarget]) return;
+		if (!tokenInfo?.[newTarget]) return;
 		if (newTarget === sourceToken) setSourceToken(findNextToken(sourceToken));
 		setTargetToken(newTarget);
 	};
