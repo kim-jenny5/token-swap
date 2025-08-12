@@ -22,7 +22,7 @@ export default function Confiatti() {
 	return (
 		<button
 			onClick={playConfiatti}
-			className='rounded-full bg-blue-600 px-3 py-1.5 font-semibold tracking-tight text-white uppercase hover:bg-blue-700 active:bg-blue-800'
+			className='rounded-2xl bg-gradient-to-br from-lime-300 to-blue-600 px-4 py-2.5 text-sm font-semibold text-white uppercase hover:from-lime-400 hover:to-blue-700'
 		>
 			Swap
 		</button>

@@ -7,28 +7,20 @@ type TokenPanelProps = {
 };
 
 export default function TokenPanel({ tokenVal, selectedToken, onChangeFn }: TokenPanelProps) {
-	console.log(typeof tokenVal);
-	console.log(typeof selectedToken);
-	console.log(typeof onChangeFn);
-
 	return (
-		<div className='flex h-full w-1/2 flex-col justify-center rounded-lg bg-white p-6 shadow'>
-			<div className='flex justify-center gap-x-8'>
-				<div className='font-numerical text-2xl'>{tokenVal.toFixed(4)}</div>
-				<div className='rounded bg-slate-100 p-1.5 text-sm'>
-					<select
-						value={selectedToken}
-						onChange={(e) => onChangeFn(e.target.value)}
-						className='focus:outline-0'
-					>
-						{TOKENS.map(({ symbol: token }, idx) => (
-							<option key={idx} value={token}>
-								{token}
-							</option>
-						))}
-					</select>
-				</div>
-			</div>
+		<div className='flex grow items-end justify-between rounded-2xl border border-white/10 bg-black/30 px-4 py-3'>
+			<span className='font-numerical text-3xl leading-none text-white'>{tokenVal.toFixed(4)}</span>
+			<select
+				value={selectedToken}
+				onChange={(e) => onChangeFn(e.target.value)}
+				className='rounded-md border border-white/10 bg-white/5 px-2 py-1 text-sm text-white outline-none'
+			>
+				{TOKENS.map(({ symbol: token }) => (
+					<option key={token} value={token} className='bg-black'>
+						{token}
+					</option>
+				))}
+			</select>
 		</div>
 	);
 }

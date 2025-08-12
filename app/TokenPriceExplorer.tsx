@@ -2,13 +2,12 @@
 
 import { useState } from 'react';
 import Confiatti from './Confiatti';
-// import CoinChips from './CoinChips';
 import { TOKENS } from './Token';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/solid';
 import TokenPanel from './TokenPanel';
 
 type TokenPriceExplorerProps = {
-	tokenInfo: Record<string, number>;
+	tokenInfo: Record<string, { name: string; unitPrice: number }>;
 };
 
 export default function TokenPriceExplorer({ tokenInfo }: TokenPriceExplorerProps) {
@@ -23,42 +22,33 @@ export default function TokenPriceExplorer({ tokenInfo }: TokenPriceExplorerProp
 	};
 
 	const usd = Number(usdInput) || 0;
-	const sourceTokenUnitPrice = tokenInfo[sourceToken];
-	const targetTokenUnitPrice = tokenInfo[targetToken];
+	const sourceTokenUnitPrice = tokenInfo[sourceToken].unitPrice;
+	const targetTokenUnitPrice = tokenInfo[targetToken].unitPrice;
 	const sourceTokenVal = usd / sourceTokenUnitPrice;
 	const targetTokenVal = usd / targetTokenUnitPrice;
 
 	return (
-		<>
-			<h1 className='text-2xl tracking-tight'>Token Price Explorer</h1>
-			{/* <CoinChips onClick={setSourceToken} /> */}
-			<form className='flex gap-x-6'>
-				<label htmlFor='usdInput' className='sr-only'>
-					Input in USD
-				</label>
-				<div className='flex items-center justify-center'>
-					<span className='pr-2 text-lg'>$</span>
-					<input
-						required
-						id='usdInput'
-						type='number'
-						inputMode='decimal'
-						placeholder='0.00'
-						value={usdInput}
-						onChange={(e) => setUsdInput(e.target.value)}
-						className='font-numerical arrowless w-1/3 border-b border-slate-200 text-2xl focus:outline-none'
-					/>
-					<span className='text-sm'>USD</span>
+		<div className='space-y-5 text-white'>
+			<div className='flex items-center justify-between'>
+				<div className='flex items-center gap-x-2 text-white'>
+					<span className='text-base font-semibold'>{tokenInfo[sourceToken].name}</span>
 				</div>
-			</form>
-			<div className='flex h-full max-h-1/2 w-full items-center justify-between gap-x-12'>
+				<div className='flex items-center gap-x-2 text-white'>
+					<span className='text-base font-semibold'>{tokenInfo[targetToken].name}</span>
+				</div>
+			</div>
+			<div className='flex items-center justify-between gap-x-5'>
 				<TokenPanel
 					tokenVal={sourceTokenVal}
 					selectedToken={sourceToken}
 					onChangeFn={setSourceToken}
 				/>
-				<button onClick={swap} className='rounded-full p-2.5 hover:bg-blue-200'>
-					<ArrowsRightLeftIcon width={25} height={25} />
+				<button
+					type='button'
+					onClick={swap}
+					className='rounded-2xl border border-white/10 bg-white/5 p-2.5 text-white/80 hover:bg-white/[0.14] focus:outline-none'
+				>
+					<ArrowsRightLeftIcon width={20} height={20} />
 				</button>
 				<TokenPanel
 					tokenVal={targetTokenVal}
@@ -66,7 +56,21 @@ export default function TokenPriceExplorer({ tokenInfo }: TokenPriceExplorerProp
 					onChangeFn={setTargetToken}
 				/>
 			</div>
-			<Confiatti />
-		</>
+			<div className='flex items-center justify-between gap-x-4'>
+				<div className='flex w-full items-center gap-x-2 rounded-2xl border border-white/10 bg-black/30 px-3 py-2'>
+					<span className='text-white/70'>$</span>
+					<input
+						id='usdInput'
+						placeholder='0.00'
+						inputMode='decimal'
+						value={usdInput}
+						onChange={(e) => setUsdInput(e.target.value)}
+						className='w-full text-lg text-white outline-none'
+					/>
+					<span className='text-white/70'>USD</span>
+				</div>
+				<Confiatti />
+			</div>
+		</div>
 	);
 }
