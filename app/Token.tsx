@@ -12,12 +12,6 @@ export const TOKENS = [
 
 export type Token = (typeof TOKENS)[number]['symbol'];
 
-export const findNextToken = (otherToken: Token) => {
-	const symbols = TOKENS.map((token) => token.symbol);
-	const idx = symbols.indexOf(otherToken);
-	return symbols[(idx + 1) % symbols.length];
-};
-
 export const formatTokenVal = new Intl.NumberFormat('en-US', {
 	minimumFractionDigits: 0,
 	maximumFractionDigits: 4,
@@ -60,4 +54,10 @@ export const getTokenInfo = async () => {
 		console.log('Failed to fetch token info:', error);
 		return null;
 	}
+};
+
+export const findNextToken = (otherToken: Token) => {
+	const symbols = TOKENS.map((token) => token.symbol);
+	const idx = symbols.indexOf(otherToken);
+	return symbols[(idx + 1) % symbols.length];
 };

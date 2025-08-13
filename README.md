@@ -4,7 +4,7 @@
 
 A simple token price viewer that lets users select two tokens and input a USD amount to see the approximate equivalent amounts in those tokens.
 
-[**Live Demo →** ]
+[**Live demo link on Vercel**](https://fun-take-home.vercel.app/)
 
 ---
 
