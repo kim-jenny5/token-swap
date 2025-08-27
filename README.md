@@ -1,7 +1,5 @@
 # Token Price Explorer
 
-> **Note:** This demo app hardcodes its API key for ease of local testing.
-
 A simple token price viewer that lets users select two tokens and input a USD amount to see the approximate equivalent amounts in those tokens.
 
 Live demo link on Vercel
