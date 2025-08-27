@@ -4,7 +4,7 @@
 
 A simple token price viewer that lets users select two tokens and input a USD amount to see the approximate equivalent amounts in those tokens.
 
-[**Live demo link on Vercel**](https://fun-take-home.vercel.app/)
+Live demo link on Vercel
 
 ---
 
@@ -13,8 +13,8 @@ A simple token price viewer that lets users select two tokens and input a USD am
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/kim-jenny5/fun-take-home.git
-   cd fun-take-home
+   git clone git@github.com:kim-jenny5/token-swap.git
+   cd token-swap
    ```
 
 2. **Install dependencies**
@@ -47,25 +47,6 @@ A simple token price viewer that lets users select two tokens and input a USD am
 - **[Headless UI](https://headlessui.dev/)** — accessible, unstyled UI components that work seamlessly with Tailwind CSS and used for the token dropdown menus.
 - **[Heroicons](https://heroicons.com/)** — SVG icons for the switch button.
 - **[js-confetti](https://github.com/loonywizard/js-confetti)** — adds a fun confetti effect for the swap button.
-
----
-
-## Assumptions & Design Decisions
-
-Initially, I interpreted the task as a classic token swap UI (like Uniswap) where the user would input a value directly into the source panel (e.g., “100 WBTC”).
-
-However, the instructions — _"input a USD amount to see the approximate equivalent amounts in those tokens"_ — led me to instead provide a **dedicated USD input field** separate from the token panels.
-
-### Key Choices:
-
-- **Dropdowns instead of chips**  
-  The wireframe included four token “chips” at the top, but I found this restrictive and less intuitive. A dropdown allows the user to directly select a token for each panel without having to re-click chips or guess the intended interaction.
-- **Middle toggle button for switching**  
-  Allows the user to flip the source and target tokens quickly without reselecting both manually.
-- **Token conflict handling**  
-  If the user tries to select the same token on both sides, the app automatically advances the conflicting side to the next token in the list.
-- **Confetti instead of real swaps**  
-  Since no actual token swapping is happening, the swap button triggers a fun confetti animation instead.
 
 ---
 

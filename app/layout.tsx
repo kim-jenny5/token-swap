@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-	title: 'Jenny Kim - fun.xyz Take Home Assessment',
+	title: 'Token Swap',
 	description: '',
 };
 
