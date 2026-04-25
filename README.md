@@ -2,7 +2,7 @@
 
 A simple token price viewer that lets users select two tokens and input a USD amount to see the approximate equivalent amounts in those tokens.
 
-Live demo link on Vercel
+[Live demo link](https://jenny-token-swap.vercel.app/)
 
 ---
 
